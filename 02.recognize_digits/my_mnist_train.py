@@ -18,10 +18,10 @@ def softmax_regression(img):
 def multilayer_perception(img):
 	# first fc
 	hidden1 = paddle.layer.fc(input=img, size=128, act=paddle.activation.Relu())
-    # second fc
-    hiden2 = paddle.layer.fc(input=hidden1, size=64, act=paddle.activation.Relu())	
+        # second fc
+        hidden2 = paddle.layer.fc(input=hidden1, size=64, act=paddle.activation.Relu())	
 
-    # thrid fc, softmax
+        # thrid fc, softmax
 	predict = paddle.layer.fc(input=hidden2, size=10, act=paddle.activation.Softmax())    
 
 	return predict
@@ -70,21 +70,20 @@ def main():
 	# Here we can build the prediction network in different ways. Please
     # choose one by uncomment corresponding line.
 
-    #predict = softmax(images)
-    #predict = multilayer_perception(images)
-    predict = convolutional_neural_network(images)
+        #predict = softmax(images)
+        predict = multilayer_perception(images)
+        # predict = convolutional_neural_network(images)
 
-    cost = paddle.layer.classification_cost(input=predict, label=label)
+        cost = paddle.layer.classification_cost(input=predict, label=label)
 
-    parameters = paddle.parameters.create(cost)
+        parameters = paddle.parameters.create(cost)
 
-    optimizer = paddle.optimizer.Momentum(
+        optimizer = paddle.optimizer.Momentum(
     	learning_rate=0.1/128.0,
     	momentum=0.9,
     	regularization=paddle.optimizer.L2Rrgularization(rate=0.0005 * 128))
 
-    trainer = paddle.trainer.SGD(
-    	cost=cost, parameters=parameters, update_equation=opyimizer)
+    trainer = paddle.trainer.SGD(cost=cost, parameters=parameters, update_equation=optimizer)
 
     lists = []
 
