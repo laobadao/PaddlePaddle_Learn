@@ -43,18 +43,24 @@ def main():
     # event_handler to print training and testing info 可以打印训练和测试时的信息
     def event_handler(event):
         if isinstance(event, paddle.event.EndIteration):
-	    if event.batch_id % 100 == 0:
-		print "Pass %d, Batch %d, Cost %f" % (event.pass_id, event.batch_id, event.cost)
+			if event.batch_id % 100 == 0:
+				print "Pass %d, Batch %d, Cost %f" % (event.pass_id, event.batch_id, event.cost)
 
 	if isinstance(event, paddle.event.EndPass):
 	   if event.pass_id % 10 == 0:
-               with open('params_pass_%d.tar' % event.pass_id, 'w') as f:
+           with open('params_pass_%d.tar' % event.pass_id, 'w') as f:
                    trainer.save_parameter_to_tar(f)
            result = trainer.test(reader=paddle.batch(uci_housing.test(), batch_size=2), feeding=feeding)        
            print "Test %d, Cost %f" % (event.pass_id, result.cost)
 
     # training
-    trainer.train(reader=paddle.batch(paddle.reader.shuffle(uci_housing.train(), buf_size=500), batch_size=2), feeding=feeding, event_handler=event_handler, num_passes=30)
+    trainer.train(
+		reader=paddle.batch(
+		paddle.reader.shuffle(uci_housing.train(), buf_size=500), 
+		batch_size=2), 
+		feeding=feeding, 
+		event_handler=event_handler, 
+		num_passes=30)
 
     # inference
 
@@ -63,7 +69,7 @@ def main():
     test_label = []
 
     for item in test_data_creator():
-        test_data.append(item[0], )
+        test_data.append((item[0], ))
         test_label.append(item[1])
         if len(test_data) == 5:
             break
