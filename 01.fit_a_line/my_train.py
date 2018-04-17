@@ -13,7 +13,7 @@ with_gpu = os.getenv('WITH_GPU', '0') != '0'
 def main():
 
     # init
-    paddle.init(use_gpu=with_gpu, traniner_count=1)
+    paddle.init(use_gpu=with_gpu, trainer_count=1)
     
     # network config
     # 训练数据 x 根据上述文章描述，前 13 个属性或特征作为 一个样本的训练数据
@@ -44,7 +44,7 @@ def main():
     def event_handler(event):
         if isinstance(event, paddle.event.EndIteration):
 	    if event.batch_id % 100 == 0:
-		print "Pass %d, Batch %d, Cost %f" % (event.pass_id, event_batch_id, event.cost)
+		print "Pass %d, Batch %d, Cost %f" % (event.pass_id, event.batch_id, event.cost)
 
 	if isinstance(event, paddle.event.EndPass):
 	   if event.pass_id % 10 == 0:
