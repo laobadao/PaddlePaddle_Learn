@@ -2,10 +2,12 @@
 
 PaddlePaddle 学习实战笔记
 
-在 作者 huxiaoman7 项目博客基础上学习
+1. PaddlePaddle 官网教程
+
+[PaddlePaddle 官网](http://www.paddlepaddle.org/)|[PaddlePaddle 
+[深度学习 101](http://www.paddlepaddle.org/docs/develop/book/01.fit_a_line/index.cn.html)
+
+2. 作者 huxiaoman7 项目博客
 
 原项目地址：https://github.com/huxiaoman7/PaddlePaddle_code
 
-修改点：
-
-1. 添加个人理解，练习
