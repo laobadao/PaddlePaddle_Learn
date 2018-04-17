@@ -1,3 +1,9 @@
+#coding:utf-8
+
+import os
+import paddle.v2 as paddle
+import paddle.v2.dataset.uci_housing as uci_housing
+
 with_gpu = os.getenv('WITH_GPU', '0') != '0'
 
 #print with_gpu
