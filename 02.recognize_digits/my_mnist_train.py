@@ -9,28 +9,28 @@ with_gpu = os.getenv('WITH_GPU', '0') != '0'
 
 # 最简单的 softmax 回归 
 def softmax_regression(img):
-	predict = paddle.layer.fc(
+    predict = paddle.layer.fc(
 		input=img, size=10, act=paddle.activation.Softmax())
-	return predict
+    return predict
 
 # 多层感知机 添加两个隐含层
 
 def multilayer_perception(img):
-	# first fc
-	hidden1 = paddle.layer.fc(input=img, size=128, act=paddle.activation.Relu())
+   	# first fc
+    hidden1 = paddle.layer.fc(input=img, size=128, act=paddle.activation.Relu())
     # second fc
     hidden2 = paddle.layer.fc(input=hidden1, size=64, act=paddle.activation.Relu())	
 
     # thrid fc, softmax
-	predict = paddle.layer.fc(input=hidden2, size=10, act=paddle.activation.Softmax())    
+    predict = paddle.layer.fc(input=hidden2, size=10, act=paddle.activation.Softmax())    
 
-	return predict
+    return predict
 
 # cnn 
 
 def convolutional_neural_network(img):	
 	# first conv layer 卷积-池化
-	conv_pool_1 = paddle.networks.simple_img_conv_pool(
+    conv_pool_1 = paddle.networks.simple_img_conv_pool(
 		input=img,
 		filter_size=5,
 		num_filters=20,
@@ -40,7 +40,7 @@ def convolutional_neural_network(img):
 		act=paddle.activation.Relu())
 
 	# second conv layer
-	conv_pool_2 = paddle.networks.simple_img_conv_pool(
+    conv_pool_2 = paddle.networks.simple_img_conv_pool(
 		input=conv_pool_1,
 		filter_size=5,
 		num_filters=50,
@@ -50,12 +50,12 @@ def convolutional_neural_network(img):
 		act=paddle.activation.Relu())
 
 	# fc layer
-	predict = paddle.layer.fc(
+    predict = paddle.layer.fc(
 		input=conv_pool_2,
 		size=10,
 		act=paddle.activation.Softmax())
 
-	return predict
+    return predict
 
 
 def main():
