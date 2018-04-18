@@ -83,11 +83,9 @@ def main():
     	momentum=0.9,
     	regularization=paddle.optimizer.L2Rrgularization(rate=0.0005 * 128))
 
-    trainer = paddle.trainer.SGD(
-        cost=cost, parameters=parameters, update_equation=optimizer)
+    trainer = paddle.trainer.SGD(cost=cost, parameters=parameters, update_equation=optimizer)
 
     lists = []
-
 
     def event_handler(event):
     	if isinstance(event, paddle.event.EndIteration):
