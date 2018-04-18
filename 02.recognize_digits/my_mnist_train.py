@@ -70,15 +70,15 @@ def main():
 	# Here we can build the prediction network in different ways. Please
     # choose one by uncomment corresponding line.
 
-        #predict = softmax(images)
-        predict = multilayer_perception(images)
-        # predict = convolutional_neural_network(images)
+    #predict = softmax(images)
+    #predict = multilayer_perception(images)
+    predict = convolutional_neural_network(images)
 
-        cost = paddle.layer.classification_cost(input=predict, label=label)
+    cost = paddle.layer.classification_cost(input=predict, label=label)
 
-        parameters = paddle.parameters.create(cost)
+    parameters = paddle.parameters.create(cost)
 
-        optimizer = paddle.optimizer.Momentum(
+    optimizer = paddle.optimizer.Momentum(
     	learning_rate=0.1/128.0,
     	momentum=0.9,
     	regularization=paddle.optimizer.L2Rrgularization(rate=0.0005 * 128))
