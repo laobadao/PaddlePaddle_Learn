@@ -59,15 +59,15 @@ def convolutional_neural_network(img):
 
 
 def main():
-	paddle.init(use_gpu=with_gpu, trainer_count=1)
+    paddle.init(use_gpu=with_gpu, trainer_count=1)
 
-	# define network topology 
-	images = paddle.layer.data(
+    # define network topology 
+    images = paddle.layer.data(
 		name='pixel', type=paddle.data_type.dense_vector(784))
-	label = paddle.layer.data(
+    label = paddle.layer.data(
 		name='label', type=paddle.data_type.integer_value(10))
 
-	# Here we can build the prediction network in different ways. Please
+    # Here we can build the prediction network in different ways. Please
     # choose one by uncomment corresponding line.
 
     #predict = softmax(images)
@@ -81,7 +81,7 @@ def main():
     optimizer = paddle.optimizer.Momentum(
     	learning_rate=0.1/128.0,
     	momentum=0.9,
-    	regularization=paddle.optimizer.L2Rrgularization(rate=0.0005 * 128))
+    	regularization=paddle.optimizer.L2Regularization(rate=0.0005 * 128))
 
     trainer = paddle.trainer.SGD(cost=cost, parameters=parameters, update_equation=optimizer)
 
@@ -117,12 +117,14 @@ def main():
 	best = sorted(lists, key=lambda list: float(list[1]))[0]
 
 	print 'Best pass is %s, testing Avgcost is %s' % (best[0], best[1])
-    print 'The classification accuracy is %.2f%%' % (100 - float(best[2]) * 100)
+        print 'The classification accuracy is %.2f%%' % (100 - float(best[2]) * 100)
 
     def load_image(file):
     	im = Image.open(file).convert('L')
     	im = im.resize((28, 28), Image.ANTIALIAS)
-    	im = im /255.0 * 2.0 -1.0
+    	im = np.array(im).astype(np.float32).flatten()
+        im = im /255.0 * 2.0 -1.0
+        return im
 
     test_data = []
     cur_dir = os.path.dirname(os.path.realpath(__file__))	
@@ -134,7 +136,7 @@ def main():
 
     print "Label of image/infer_3.png is: %d" % lab[0][0]
 
-def if __name__ == '__main__':
+if __name__ == '__main__':
 	main()    
 
 
