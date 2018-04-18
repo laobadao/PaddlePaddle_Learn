@@ -18,10 +18,10 @@ def softmax_regression(img):
 def multilayer_perception(img):
 	# first fc
 	hidden1 = paddle.layer.fc(input=img, size=128, act=paddle.activation.Relu())
-        # second fc
-        hidden2 = paddle.layer.fc(input=hidden1, size=64, act=paddle.activation.Relu())	
+    # second fc
+    hidden2 = paddle.layer.fc(input=hidden1, size=64, act=paddle.activation.Relu())	
 
-        # thrid fc, softmax
+    # thrid fc, softmax
 	predict = paddle.layer.fc(input=hidden2, size=10, act=paddle.activation.Softmax())    
 
 	return predict
@@ -117,7 +117,7 @@ def main():
 	best = sorted(lists, key=lambda list: float(list[1]))[0]
 
 	print 'Best pass is %s, testing Avgcost is %s' % (best[0], best[1])
-        print 'The classification accuracy is %.2f%%' % (100 - float(best[2]) * 100)
+    print 'The classification accuracy is %.2f%%' % (100 - float(best[2]) * 100)
 
     def load_image(file):
     	im = Image.open(file).convert('L')
