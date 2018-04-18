@@ -61,8 +61,8 @@ def main():
 
     # Here we can build the prediction network in different ways. Please
     # choose one by uncomment corresponding line.
-    # predict = softmax_regression(images)
-    # predict = multilayer_perceptron(images)
+    #predict = softmax_regression(images)
+   # predict = multilayer_perceptron(images)
     predict = convolutional_neural_network(images)
 
     cost = paddle.layer.classification_cost(input=predict, label=label)
