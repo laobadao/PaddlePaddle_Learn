@@ -31,7 +31,7 @@ def get_usr_combined_features():
 	usr_age_fc = paddle.layer.fc(input=usr_age_emb, size=16)
 
 	# 对 usr_job_id 进行 embedding fc 操作
-	usr_job_id = paddle.data_type.integer_value(
+	usr_job_id = paddle.layer.data(
 		name="job_id",
 		type=paddle.data_type.integer_value(paddle.dataset.movielens.max_job_id() + 1))
 	usr_job_emb = paddle.layer.embedding(input=usr_job_id, size=16)
@@ -57,20 +57,20 @@ def get_mov_combined_features():
         name='category_id',
         type=paddle.data_type.sparse_binary_vector(
             len(paddle.dataset.movielens.movie_categories())))
-    mov_categories_hidden = paddle.layer.fc(input=mov_categories, size=32)
+        mov_categories_hidden = paddle.layer.fc(input=mov_categories, size=32)
 
-    mov_title_id = paddle.layer.data(
+        mov_title_id = paddle.layer.data(
         name='movie_title',
         type=paddle.data_type.integer_value_sequence(len(movie_title_dict)))
-    mov_title_emb = paddle.layer.embedding(input=mov_title_id, size=32)
-    mov_title_conv = paddle.networks.sequence_conv_pool(
+        mov_title_emb = paddle.layer.embedding(input=mov_title_id, size=32)
+        mov_title_conv = paddle.networks.sequence_conv_pool(
         input=mov_title_emb, hidden_size=32, context_len=3)
 
-    mov_combined_features = paddle.layer.fc(
+        mov_combined_features = paddle.layer.fc(
         input=[mov_fc, mov_categories_hidden, mov_title_conv],
         size=200,
         act=paddle.activation.Tanh())
-    return mov_combined_features
+        return mov_combined_features
 
 
 def main():
@@ -132,8 +132,10 @@ def main():
         parameters=parameters,
         input=[feature],
         feeding=infer_dict)
-    print(prediction + 5) / 2
-	print "[Predict] User %d Rating Movie %d With Score %.2f"%(user_id, movie_id, score)
+    
+    score = (prediction + 5) / 2
+    print score
+    print "[Predict] User %d Rating Movie %d With Score %.2f"%(user_id, movie_id, score)
 
 
 if __name__ == '__main__':

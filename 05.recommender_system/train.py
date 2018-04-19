@@ -128,8 +128,10 @@ def main():
         parameters=parameters,
         input=[feature],
         feeding=infer_dict)
-    print(prediction + 5) / 2
-	print "[Predict] User %d Rating Movie %d With Score %.2f"%(user_id, movie_id, score)
+    
+    score = (prediction + 5) / 2
+    print score
+    print "[Predict] User %d Rating Movie %d With Score %.2f"%(user_id, movie_id, score)
 
 
 if __name__ == '__main__':
