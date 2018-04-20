@@ -159,28 +159,3 @@ if __name__ == '__main__':
         event_handler=event_handler,
         feeding=feeding,
         num_passes=20)
-
-	import numpy as np
-
-    # Movie Reviews, from imdb test
-    reviews = [
-        'Read the book, forget the movie!',
-        'This is a great movie.'
-    ]
-    reviews = [c.split() for c in reviews]
-
-    UNK = word_dict['<unk>']
-    input = []
-    for c in reviews:
-        input.append([[word_dict.get(words, UNK) for words in c]])
-
-    # 0 stands for positive sample, 1 stands for negative sample
-    label = {0:'pos', 1:'neg'}
-    # Use the network used by trainer
-    out = convolution_net(dict_dim, class_dim=class_dim, is_predict=True)
-    # out = stacked_ LSTM _net(dict_dim, class_dim=class_dim, stacked_num=3, is_predict=True)
-    probs = paddle.infer(output_layer=out, parameters=parameters, input=input)
-
-    labs = np.argsort(-probs)
-    for idx, lab in enumerate(labs):
-        print idx, "predicting probability is", probs[idx], "label is", label[lab[0]]
